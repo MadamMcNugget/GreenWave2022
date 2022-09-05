@@ -1,0 +1,56 @@
+:host {
+	display: block;
+	margin-top: 1rem;
+}
+
+mat-spinner {
+	margin: auto;
+}
+
+.mat-sort-header-container {
+  align-items: center;
+}
+
+mat-paginator {
+	margin-top: 1rem;
+}
+
+.info-text {
+	text-align: center;
+}
+
+table {
+  	width: 100%;
+}
+
+td{
+	border-right: 1px solid #ddd
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+.center-cell {
+	text-align: center;
+}
+
+.filter-search {
+	width: 25em
+}
+
+.spacer {
+	flex: 1 1 auto;
+}
+
+.userbox{
+	width: 50%;
+}
+
+mat-tool-tip {
+	font-size: 1.5em;
+}
+
+tr:hover {
+	background-color: #eee;
+}

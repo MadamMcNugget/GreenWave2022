@@ -1,0 +1,22 @@
+<h2>Edit User</h2>
+
+<form [formGroup]="editUserFormGroup">
+	<mat-dialog-content>
+		Email:
+		<mat-form-field >
+			<input  matInput
+					type="text"
+					name="email"
+					required
+					formControlName="email">
+		</mat-form-field><br>
+		Status: <br><br>
+		<mat-radio-group aria-label="Select the Response Type" required formControlName="status" name="status">
+			<mat-radio-button *ngFor="let status of statuses" color="primary" [value]="status">{{status}}<br></mat-radio-button>
+		</mat-radio-group>
+
+	</mat-dialog-content>
+	<mat-dialog-actions align="end">
+		<button color="primary" mat-raised-button type="button" (click)="onEditUser()">Edit User</button>
+	</mat-dialog-actions>
+</form>

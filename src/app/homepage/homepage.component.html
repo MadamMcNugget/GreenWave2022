@@ -1,0 +1,15 @@
+<mat-card>
+	<img mat-card-image src="assets/gpc_logo_web_green_enfr.png" alt="Logo">
+	<mat-card-content>
+		<h2>Welcome!</h2>
+		<p *ngIf="!userIsAuthenticated">
+			Please sign up or login :)
+		</p>
+		<p *ngIf="userIsAuthenticated && userStatus !== 'unverified'">
+			You have signed in! Choose an option above to get started :)
+		</p>
+		<p *ngIf="userIsAuthenticated && userStatus === 'unverified'">
+			You are currently unverified. Please contact Hazel at hazel.yip@greenparty.ca to obtain verification.
+		</p>
+	</mat-card-content>
+</mat-card>

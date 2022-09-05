@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatMenuModule } from '@angular/material/menu';
-
 import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatRadioModule } from '@angular/material/radio';
+
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
@@ -29,6 +31,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 		MatMenuModule,
 		MatButtonModule,
 		MatTableModule,
+		MatRadioModule,
 		MatIconModule,
 		MatCardModule,
 		MatFormFieldModule,
@@ -46,7 +49,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 		MatCheckboxModule,
 		MatAutocompleteModule,
 		MatSidenavModule,
-		MatSnackBarModule
+		MatSnackBarModule,
+		MatDialogModule
 	]
 } )
 

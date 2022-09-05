@@ -7,7 +7,7 @@
 		</li>
 
 		<li *ngIf="userIsAuthenticated && (userStatus==='admin' || userStatus==='staff' || userStatus==='canvasser' || userStatus==='caller and canvasser')">
-			<button mat-icon-button [matMenuTriggerFor]="surveyMenu" #surveyMenuTrigger="matMenuTrigger" (click)="openSurveyMenu()">
+			<button mat-button [matMenuTriggerFor]="surveyMenu" #surveyMenuTrigger="matMenuTrigger" (click)="openSurveyMenu()">
       			Canvass <mat-icon>arrow_drop_down</mat-icon>
     		</button>
     	</li>
@@ -29,7 +29,7 @@
 	    </mat-menu>
 
 		<li *ngIf="userIsAuthenticated && (userStatus==='admin' || userStatus==='staff' || userStatus==='caller' || userStatus==='caller and canvasser')">
-			<button mat-icon-button [matMenuTriggerFor]="volunteerMenu" #volunteerMenuTrigger="matMenuTrigger" (click)="openVolunteerMenu()">
+			<button mat-button [matMenuTriggerFor]="volunteerMenu" #volunteerMenuTrigger="matMenuTrigger" (click)="openVolunteerMenu()">
       			Volunteers <mat-icon>arrow_drop_down</mat-icon>
     		</button>
     	</li>
@@ -55,30 +55,6 @@
 		<li *ngIf="userIsAuthenticated">
 			<button mat-button (click)="onLogout()">Log Out</button>
 		</li>  
-		<!--
-		<li *ngIf="userIsAuthenticated" >
-			<button mat-icon-button  [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-			  	<mat-icon>more_vert</mat-icon>
-			</button>
-			<mat-menu #menu="matMenu">
-				<button mat-menu-item>
-					<mat-icon>adjust</mat-icon>
-					<span>Account Overview</span>
-				</button>
-				<button mat-menu-item>
-					<mat-icon>voicemail</mat-icon>
-					<span>View Orders</span>
-				</button>
-				<mat-divider></mat-divider>
-				<button mat-menu-item>
-					<mat-icon>notifications_off</mat-icon>
-					<span>Change Address</span>
-				</button>
-				<button mat-menu-item>
-					<mat-icon>toys</mat-icon>
-					<span>Change Password</span>
-				</button>
-			</mat-menu>
-		</li> -->
+
 	</ul>
 </mat-toolbar>

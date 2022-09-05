@@ -1,0 +1,31 @@
+<mat-card>
+	<h1>Login</h1>
+	<mat-spinner *ngIf="isLoading"></mat-spinner>
+	<form (submit)="onLogin(loginForm)" #loginForm="ngForm" *ngIf="!isLoading">   <!-- [formGroup] relates to 'form' declared in typescript -->
+		<mat-form-field>
+			<input 	matInput 
+					type="email" 
+					name="email"
+					ngModel 
+					placeholder="E-mail" 
+					#emailInput="ngModel"
+					required 
+					email
+					>
+					<mat-error *ngIf="emailInput.invalid"> Please enter a valid email. </mat-error>  <!-- checks if thing with #title="ngModel" (this post) is valid -->
+		</mat-form-field>
+		<mat-form-field>
+			<input type="password" 
+				name="password"
+				ngModel
+				#passwordInput="ngModel"
+				matInput 
+				placeholder="Password"
+				required>
+			<mat-error *ngIf="passwordInput.invalid">Please enter a valid password. </mat-error>
+		</mat-form-field>														<!-- # in element is a marker. silimar to id? -->
+
+		<br>
+		<button mat-raised-button color="primary" type="submit" *ngIf="!isLoading">Login</button>    <!-- (click) is angular, passes method from .ts file -->
+	</form>	
+</mat-card>	
