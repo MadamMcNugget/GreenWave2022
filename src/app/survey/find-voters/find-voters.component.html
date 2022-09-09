@@ -1,0 +1,98 @@
+
+<h3>Find voters by address</h3>
+<div class="top-right">
+	<button mat-flat-button color="warn" (click)="clearVoters()">Clear Voters</button>
+</div>
+
+<p>Please enter street name below.</p>
+
+<form #findVotersForm="ngForm" (submit)="search(findVotersForm.value.street)">
+	<mat-form-field>
+		<mat-label>Street Name</mat-label>
+		<input  matInput
+				type="text"
+				name="street"
+				[(ngModel)]="street"
+				placeholder="Example: Hastings">
+	</mat-form-field>
+	 &nbsp; &nbsp;
+	<button mat-raised-button color="primary" type="submit">Find</button>
+	<br>
+	<mat-form-field class="filter-search">
+		<mat-label>House Number</mat-label>
+		<input 	matInput 
+				(keyup)="applyFilter($event)"
+				[(ngModel)]="houseNum"
+				name="houseNum">
+		<span matPrefix><mat-icon>search</mat-icon> &nbsp;</span>
+		<mat-hint>or (unit number)-(house number)</mat-hint>
+	</mat-form-field>
+</form>
+
+<div class="voters-table">
+
+	<h3>Voters</h3>
+	<span class="spacer"></span>
+
+	<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+		<ng-container matColumnDef="name">
+		<th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+		<td mat-cell *matCellDef="let element"> {{element.name}} </td>
+		</ng-container>
+
+		<ng-container matColumnDef="address">
+		<th mat-header-cell *matHeaderCellDef mat-sort-header> Address </th>
+		<td mat-cell *matCellDef="let element"> 
+			{{element.aptNum}}<span *ngIf="element.aptNum">-</span>{{element.houseNum}} {{element.streetName}} 
+		</td>
+		</ng-container>
+
+		<ng-container matColumnDef="city">
+		<th mat-header-cell *matHeaderCellDef mat-sort-header> City </th>
+		<td mat-cell *matCellDef="let element"> 
+			{{element.city}}
+		</ng-container>
+
+		<ng-container matColumnDef="support">
+		<th mat-header-cell *matHeaderCellDef mat-sort-header start="desc"> Support </th>
+		<td mat-cell *matCellDef="let element"> 
+			<span *ngIf="element.support">
+				<span [matTooltip]="element.support">
+					<span *ngFor="let i of numOfStars(element.support)">
+						<mat-icon>star</mat-icon>
+					</span>
+				</span>
+			</span>
+			
+			<!--
+			couldnt make things sort here
+			-->
+		</ng-container>
+
+		<ng-container matColumnDef="canvassedBy">
+		<th mat-header-cell *matHeaderCellDef mat-sort-header> Canvassed<br>By </th>
+		<td mat-cell *matCellDef="let element"> {{element.canvassedBy}} </td>
+		</ng-container>
+
+		<ng-container matColumnDef="canvassedDate">
+		<th mat-header-cell *matHeaderCellDef mat-sort-header> Canvassed<br>Date </th>
+		<td mat-cell *matCellDef="let element"> {{element.canvassedDate | date: 'mediumDate'}} </td>
+		</ng-container>
+		
+		<ng-container matColumnDef="canvass">
+		<th mat-header-cell *matHeaderCellDef mat-sort-header> Canvass </th>
+		<td mat-cell *matCellDef="let element"> 
+			<button mat-flat-button color="primary" (click)="canvass(element, findVotersForm.value.houseNum)" class="big-button">Go</button>
+		</td>
+		</ng-container>
+
+		<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+		<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+	</table>
+
+	<mat-paginator [pageSizeOptions]=pageSizeOptions showFirstLastButtons></mat-paginator>
+
+</div>
+
+<mat-spinner *ngIf="isLoading"></mat-spinner>

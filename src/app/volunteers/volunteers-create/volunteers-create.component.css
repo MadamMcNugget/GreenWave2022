@@ -1,0 +1,39 @@
+
+mat-form-field, 
+textarea {
+	width: 100%;
+}
+
+mat-card {
+	margin-top: 5em;
+	width: 80%;
+	margin:auto;
+}
+
+mat-spinner {
+	margin: auto;
+}
+
+input, textarea {
+	font-size: 1.2em;
+}
+
+mat-label {
+	font-size: 1.2em;
+}
+
+mat-slide-toggle {
+	margin-right: 2em;
+}
+
+.spacer {
+	flex: 1 1 auto;
+}
+
+.tooltip-icon {
+	margin-left: 1em;
+}
+
+mat-list-item:hover {
+	background-color: #ddd;
+}

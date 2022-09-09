@@ -10,11 +10,16 @@ import { AppComponent } from './app.component';
 
 import { AngularMaterialModule } from './angular-material.module';
 
+import { VolunteersModule } from './volunteers/volunteers.module';
+import { SurveyModule } from './survey/survey.module';
+
 import { HeaderComponent } from './header/header.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { UsersViewComponent, UserEditDialog } from './auth/users-view/users-view.component';
 
 import { AuthInterceptor } from './auth/auth-interceptor';
+import { ErrorComponent } from './error/error.component';
+import { ErrorInterceptor } from './error-interceptor';
 
 @NgModule( {
 	declarations: [
@@ -22,7 +27,7 @@ import { AuthInterceptor } from './auth/auth-interceptor';
 		HeaderComponent,
 		HomepageComponent,
 		UsersViewComponent, 
-		UserEditDialog
+		UserEditDialog, ErrorComponent
 	],
 	imports: [
 		BrowserModule,
@@ -31,12 +36,15 @@ import { AuthInterceptor } from './auth/auth-interceptor';
 		AngularMaterialModule,
 		BrowserAnimationsModule,
 		FormsModule,
-		ReactiveFormsModule 
+		ReactiveFormsModule,
+		VolunteersModule,
+		SurveyModule
 	],
 	providers: [
 		{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+		{provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
 	],
 	bootstrap: [ AppComponent ],
-	entryComponents: [ UserEditDialog ]
+	entryComponents: [ UserEditDialog, ErrorComponent ]
 } )
 export class AppModule { }

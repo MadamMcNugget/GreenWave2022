@@ -1,0 +1,51 @@
+:host {
+	display: block;
+	margin-top: 1rem;
+}
+
+mat-spinner {
+	margin: auto;
+}
+
+.info-text {
+	text-align: center;
+}
+
+mat-paginator {
+	margin-top: 1rem;
+}
+
+mat-vertical-stepper {
+	font-size: 1.2em;
+}
+
+button{
+	padding: 0.5em 1em;
+	font-size: 1.2em;
+}
+
+.info-text {
+	text-align: center;
+}
+.question {
+	margin: 0.5em;
+}
+
+.wide {
+	width: 100%;
+}
+
+.spacer {
+	flex: 1 1 auto;
+}
+
+.radio-button {
+	margin: 0.8em;
+	font-size: 1.2em;
+}
+
+.radio-group {
+	display: flex;
+	flex-direction: column;
+	margin: 0.5em;
+}

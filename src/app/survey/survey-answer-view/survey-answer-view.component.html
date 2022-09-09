@@ -1,0 +1,61 @@
+<h2>Canvassed Answers</h2>
+
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+
+<div *ngIf="!isLoading && voters.length !== 0">
+	<mat-accordion>
+		<mat-expansion-panel *ngFor="let voter of voters; let i = index">
+			<mat-expansion-panel-header>
+				<mat-panel-title>
+					Poll: {{voter.poll}} &nbsp; Seq: {{voter.sequence}}
+				</mat-panel-title>
+				<mat-panel-description>
+					{{voter.name}} <span *ngIf="voter.needsManualEntry===true">&nbsp;<mat-icon class="new-releases">new_releases</mat-icon></span>
+				</mat-panel-description>
+			</mat-expansion-panel-header>
+
+			<div class="top-right">
+				<a mat-raised-button color="primary" [href]="'https://vote.greenparty.ca' + voter.GVoteLink" target="_blank">View Voter in GVote</a><br><br>
+				<button mat-flat-button color="primary" (click)="finish(voter, i)" *ngIf="voter.needsManualEntry===true || voter.status==='2canvassed'">Manual Entry Complete</button>
+			</div>
+			<div>
+				Canvasser: {{voter.canvassedBy}}<br>
+				Canvassed Date: {{voter.canvassedDate | date: 'mediumDate'}}<br>
+				Support Level: {{voter.support}}<br>
+				Address: <span *ngIf="voter.aptNum">{{voter.aptNum}}-</span>{{voter.houseNum}} {{voter.streetName}}, {{voter.city}}<br>
+				Status: 
+				<span [ngSwitch]="voter.status">
+					<span *ngSwitchCase="'1manual'"><mat-icon class="new-releases">new_releases</mat-icon>Needs Manual Entry - Please enter volunteer tag and/or email and/or phone number to GVote</span>
+					<span *ngSwitchCase="'2canvassed'">Canvassed</span>
+					<span *ngSwitchCase="'3complete'">Complete</span>
+					<span *ngSwitchCase="'4uncanvassed'">Uncanvassed</span>
+					<span *ngSwitchDefault>0</span>
+				</span>
+				<br>
+				Manual Entry Required: <span *ngIf="voter.needsManualEntry===true">Yes <mat-icon class="new-releases">new_releases</mat-icon></span> <span *ngIf="voter.needsManualEntry===false">No</span>
+			</div>
+			<div *ngFor="let answer of voter.answers">
+				<h4>{{answer.question}}</h4>
+				<div *ngFor="let response of answer.answer">
+					{{response}}
+				</div>
+			</div>
+		</mat-expansion-panel>
+	</mat-accordion>
+</div>
+
+<mat-paginator [length]="totalVoters" [pageSize]="votersPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)" showFirstLastButtons *ngIf="voters.length > 0"></mat-paginator>
+
+<p *ngIf="voters.length > 0">
+	<u>Stats:</u> <br>
+	&nbsp;&nbsp;Canvassed Today: {{canvassedTodayCount}}<br>
+	&nbsp;&nbsp;Needs Manual Entry: {{manualCount}}<br>
+	&nbsp;&nbsp;Complete: {{completeCount}}<br>
+	&nbsp;&nbsp;Total Canvassed: {{totalVoters}}
+</p>
+
+<button mat-flat-button (click)="updateToGVote()" color="primary" *ngIf="canvassedTodayCount > 0 && userStatus === 'admin' || userStatus === 'staff'">Upload to GVote</button>
+
+<p *ngIf="!isLoading && voters.length === 0">
+	No answered surveys here. Go out and canvass!
+</p>

@@ -1,0 +1,21 @@
+
+mat-form-field, 
+textarea {
+	width: 100%;
+}
+
+mat-spinner {
+	margin: auto;
+}
+
+input[type="file"] {
+	visibility: hidden;
+}
+
+mat-radio-button {
+	margin-left: 2em;
+}
+
+.action-button {
+	margin-left: 1em;
+}

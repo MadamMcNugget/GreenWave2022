@@ -1,0 +1,173 @@
+<mat-list>
+	<mat-list-item>
+		<h2>All Volunteers</h2>
+		<span class="spacer"></span>
+		<mat-form-field class="filter-search">
+			<input matInput (keyup)="applyFilter($event)" placeholder="Search">
+			<span matPrefix><mat-icon>search</mat-icon> &nbsp;</span>
+		</mat-form-field>
+	</mat-list-item>
+</mat-list>
+
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+
+<div >
+
+	<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+		<!-- Position Column -->
+		<ng-container matColumnDef="firstName">
+		<th mat-header-cell *matHeaderCellDef mat-sort-header> First Name </th>
+		<td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+		</ng-container>
+
+		<!-- Name Column -->
+		<ng-container matColumnDef="lastName">
+		<th mat-header-cell *matHeaderCellDef mat-sort-header> &nbsp; Last Name </th>
+		<td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+		</ng-container>
+
+		<!-- Weight Column -->
+		<ng-container matColumnDef="email">
+		<th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+		<td mat-cell *matCellDef="let element"> {{element.email}} </td>
+		</ng-container>
+
+		<!-- Symbol Column -->
+		<ng-container matColumnDef="phoneNumber">
+		<th mat-header-cell *matHeaderCellDef mat-sort-header> Phone Number </th>
+		<td mat-cell *matCellDef="let element"> {{element.phoneNumber}} </td>
+		</ng-container>
+
+		<ng-container matColumnDef="address">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header> Address </th>
+			<td mat-cell *matCellDef="let element"> {{element.address}} </td>
+		</ng-container>
+
+		<ng-container matColumnDef="intake">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header start="desc"> Intake <br>Replied</th>
+			<td mat-cell *matCellDef="let element" class="center-cell"> 
+				<span *ngIf="element.intake === true">
+					<mat-icon>check_circle</mat-icon>
+				</span>  </td>
+		</ng-container>
+
+		<ng-container matColumnDef="footCanvass" class="center-header-cell">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header start="desc"> Foot <br>Canvass </th>
+			<td mat-cell *matCellDef="let element" class="center-cell"> 
+				<span *ngIf="element.footCanvass === true">
+					<mat-icon>check_circle</mat-icon>
+				</span> 
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="phoneCanvass">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header class="center-cell" start="desc"> Phone <br>Canvass </th>
+			<td mat-cell *matCellDef="let element" class="center-cell">
+				<span *ngIf="element.phoneCanvass === true">
+					<mat-icon>check_circle</mat-icon>
+				</span> 
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="office">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header class="center-cell" start="desc"> Office </th>
+			<td mat-cell *matCellDef="let element" class="center-cell"> 
+				<span *ngIf="element.office === true">
+					<mat-icon>check_circle</mat-icon>
+				</span> 
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="hosting">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header class="center-cell" start="desc"> Hosting </th>
+			<td mat-cell *matCellDef="let element" class="center-cell"> 
+				<span *ngIf="element.hosting === true">
+					<mat-icon>check_circle</mat-icon>
+				</span> 
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="events">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header class="center-cell" start="desc"> Events </th>
+			<td mat-cell *matCellDef="let element" class="center-cell"> 
+				<span *ngIf="element.events === true">
+					<mat-icon>check_circle</mat-icon>
+				</span> 
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="smc">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header class="center-cell" start="desc"> Social Media <br>Contributor </th>
+			<td mat-cell *matCellDef="let element" class="center-cell"> 
+				<span *ngIf="element.smc === true">
+					<mat-icon>check_circle</mat-icon>
+				</span> 
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="signposter">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header class="center-cell" start="desc"> Sign & <br>Poster </th>
+			<td mat-cell *matCellDef="let element" class="center-cell"> 
+				<span *ngIf="element.signposter === true">
+					<mat-icon>check_circle</mat-icon>
+				</span> 
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="photographer">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header class="center-cell" start="desc"> Photographer </th>
+			<td mat-cell *matCellDef="let element" class="center-cell"> 
+				<span *ngIf="element.photographer === true">
+					<mat-icon>check_circle</mat-icon>
+				</span> 
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="core">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header start="desc"> Core <br>Team </th>
+			<td mat-cell *matCellDef="let element" class="center-cell"> 
+				<span *ngIf="element.core === true">
+					<mat-icon>check_circle</mat-icon>
+				</span>
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="notes">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header start="desc"> Notes </th>
+			<td mat-cell *matCellDef="let element" class="center-cell"> 
+				<span *ngIf="element.notes">
+					<mat-icon matTooltip="{{element.notes}}" matTooltipPosition="above">message</mat-icon>
+				</span>
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="edit">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header class="center-cell"> Edit </th>
+			<td mat-cell *matCellDef="let element" class="center-cell"> 
+				<button mat-icon-button color="primary" [routerLink]="['/volunteers/edit', element.id]">
+					<mat-icon>edit</mat-icon>
+				</button>
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="delete">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header class="center-cell"> 
+				<span *ngIf="userStatus === 'admin' || userStatus === 'staff'">
+					Delete 
+				</span>
+			</th>
+			<td mat-cell *matCellDef="let element" class="center-cell" >  
+				<button mat-icon-button color="warn"  *ngIf="userStatus === 'admin' || userStatus === 'staff'" (click)="onDelete(element.id, element.firstName, element.lastName)">
+					<mat-icon>cancel</mat-icon>
+				</button>
+			</td>
+		</ng-container>
+
+		<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+		<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+	</table>
+
+	<mat-paginator [pageSizeOptions]='pageSizeOptions' showFirstLastButtons></mat-paginator>
+
+</div>

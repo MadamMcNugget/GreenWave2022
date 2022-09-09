@@ -13,13 +13,13 @@ const BACKEND_URL = environment.apiUrl + '/user/';
 })
 export class AuthService {
 
-  private token: string | null = null;
+  private token: string = '';
 	private userauthListener = new Subject<{authStatus: boolean, userStatus: string | null}>();
 	private isAuthenticated = false;
 	private tokenTimer: any;
-	private userId: string | null = null;
-	private userEmail: string | null = null;
-	private userStatus: string | null = null;
+	private userId: string = '';
+	private userEmail: string = '';
+	private userStatus: string = '';
 	private authStatusListener = new Subject<boolean>();
 	users = [];
 	private usersUpdated = new Subject<{ users: AuthData[] }>();
@@ -107,10 +107,10 @@ export class AuthService {
 	}
 
 	logout() {
-		this.token = null;
-		this.userId = null;
+		this.token = '';
+		this.userId = '';
 		this.isAuthenticated = false;
-		this.userStatus = null;
+		this.userStatus = '';
 		this.userauthListener.next({authStatus: false, userStatus: null});
 		this.router.navigate(['/']);
 		//clearTimeout(this.tokenTimer);
@@ -158,9 +158,9 @@ export class AuthService {
 		//if (expiresIn > 0) {
 			this.token = authInfo.token;
 			this.isAuthenticated = true;
-			this.userId = authInfo.userId;
-			this.userEmail = authInfo.userEmail;
-			this.userStatus = authInfo.userStatus;
+			this.userId = this.nullToString( authInfo.userId );
+			this.userEmail = this.nullToString( authInfo.userEmail );
+			this.userStatus = this.nullToString( authInfo.userStatus );
 			//this.setAuthTimer(expiresIn / 1000);
 			this.userauthListener.next({ authStatus: true, userStatus: authInfo.userStatus });
 		//}
@@ -222,4 +222,9 @@ export class AuthService {
 			});
 
 	}
+
+	nullToString( value: string | null ): string {
+		return value == null ? '' : value;
+	}
+
 }

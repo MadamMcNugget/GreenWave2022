@@ -667,17 +667,17 @@ exports.updateOneVoter = (req,res,next) => {
 	var volAns = "";
 	var emailAns = "";
 	var phoneAns = ""; 
-	qIndex = req.body.answers.map( function(x) {return x.questionID}).indexOf("5d40ccbce622cd24b43ac9ec");
+	qIndex = req.body.answers.map( function(x) {return x.questionID}).indexOf("63198e2f4c211f1af52f392b");
 	if ( req.body.answers[qIndex].response !== null )
 		volAns = req.body.answers[qIndex].response[0];
-	qIndex = req.body.answers.map( function(x) {return x.questionID}).indexOf("5d632a04cd7c052baca8ca19");
+	qIndex = req.body.answers.map( function(x) {return x.questionID}).indexOf("63198e4f4c211f1af52f392d");
 	if ( req.body.answers[qIndex].response !== null )
 		emailAns = req.body.answers[qIndex].response[0];
-	qIndex = req.body.answers.map( function(x) {return x.questionID}).indexOf("5d40ccbce622cd24b43ac9f5");
+	qIndex = req.body.answers.map( function(x) {return x.questionID}).indexOf("63198e5e4c211f1af52f392e");
 	if ( req.body.answers[qIndex].response !== null )
 		phoneAns = req.body.answers[qIndex].response[0];
 
-	if ( volAns === "5d8c071bddec2706194f61f9" || emailAns || phoneAns ) {	// if any of these exist
+	if ( volAns === "oo" || emailAns || phoneAns ) {	// if any of these exist
 		// updatedtogvote => true
 		console.log('voter needs manual entry');
 		var voterInfo = {
@@ -686,7 +686,8 @@ exports.updateOneVoter = (req,res,next) => {
 			canvassedDate: Date.now(),
 			canvassedBy: req.body.canvassedBy,
 			status: '2canvassed',
-			needsManualEntry: true
+			needsManualEntry: true,
+			support: req.body.voter.support
 		}
 	} else {
 		var voterInfo = {
@@ -694,7 +695,9 @@ exports.updateOneVoter = (req,res,next) => {
 			answers: req.body.answers,
 			canvassedDate: Date.now(),
 			canvassedBy: req.body.canvassedBy,
-			status: '2canvassed'
+			status: '2canvassed',
+			needsManualEntry: false,
+			support: req.body.voter.support
 		}
 	}
 

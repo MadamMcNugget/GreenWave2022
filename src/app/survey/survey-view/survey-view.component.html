@@ -1,0 +1,91 @@
+<h3>Canvass</h3>
+
+<p *ngIf="!isLoading">
+	<u>Voter</u><br>
+	&nbsp; Name: {{voter.name}}<br>
+	&nbsp; Address: <span *ngIf="voter.aptNum">{{voter.aptNum}}-</span>{{voter.houseNum}} {{voter.streetName}}<br>
+	&nbsp; Support Level: {{voter.support}}
+</p>
+
+<form [formGroup]="surveyForm">
+	<mat-vertical-stepper labelPosition="bottom" *ngIf="!isLoading" #stepper>
+		<mat-step *ngFor="let section of survey.section; let s = index">
+			<ng-template matStepLabel>{{section.title}}</ng-template>
+			<mat-accordion>
+				<mat-expansion-panel *ngFor="let question of section.questions;let q = index" [expanded]="section.step === q" (opened)="setStep(s, q)">
+					<mat-expansion-panel-header>
+						<mat-panel-title>
+							Question {{q+1}}
+						</mat-panel-title>
+					</mat-expansion-panel-header>
+					<h3 class="question">{{question.question}}</h3>
+					<div [ngSwitch]="question.responseType">
+						
+						<mat-selection-list *ngSwitchCase="'Checkbox'" formControlName="{{question.id}}">
+							<mat-list-option 
+								*ngFor="let response of question.responses" 
+								checkboxPosition="before" 
+								color="primary" 
+								value={{response.id}}>
+								{{response.response}}
+							</mat-list-option>
+						</mat-selection-list>
+
+						<mat-radio-group 
+							*ngSwitchCase="'Multiple Choice'" formControlName="{{question.id}}" class="radio-group">
+							<mat-radio-button 
+								*ngFor="let response of question.responses" 
+								color="primary" 
+								class="radio-button" 
+								value="{{response.id}}">
+								{{response.response}}
+							</mat-radio-button>
+						</mat-radio-group>
+
+						<mat-form-field class="wide" *ngSwitchCase="'Text'" appearance="outline">
+							<textarea matInput formControlName="{{question.id}}"></textarea>
+						</mat-form-field>
+					</div>
+					<mat-action-row>
+						
+						<span *ngIf="q !== 0"><button mat-button color="warn" (click)="prevStep(s)">Previous</button></span>
+						<span *ngIf="q === 0 && s !== 0"><button mat-button color="warn" matStepperPrevious>Previous</button></span>
+						<span class="spacer"></span>
+						<span *ngIf="s === survey.section.length - 1 && q === survey.section[s].questions.length - 1; then endSurvey else contSurvey">
+						</span>
+						<ng-template #endSurvey><button mat-raised-button color="primary" (click)="finishSurvey()">End Survey</button></ng-template>
+						<ng-template #contSurvey>
+							<span [ngSwitch]="nextAction(s, question.id!, surveyForm.get(question.id!)!.value )">
+								<span *ngSwitchCase="'end'">
+									<button mat-raised-button color="primary" (click)="finishSurvey()">End Survey</button>
+								</span>
+								<span *ngSwitchCase="'next'">
+									<span *ngIf="q !== survey.section[s].questions.length - 1">
+										<button mat-raised-button color="primary" (click)="nextStep(s)">Next</button>
+									</span>
+									<span *ngIf="s !== survey.section.length - 1 && q === survey.section[s].questions.length - 1">
+										<button mat-raised-button color="primary" matStepperNext>Next</button>
+									</span>
+								</span>
+								<span *ngSwitchDefault>
+									<button mat-raised-button color="primary" (click)="goto(nextAction(s, question.id!, surveyForm.get(question.id!)!.value))">Next</button>
+								</span>
+							</span>
+						</ng-template>
+					</mat-action-row>
+				</mat-expansion-panel>
+			</mat-accordion>
+		</mat-step>
+
+	</mat-vertical-stepper>
+</form>
+
+<mat-list>
+	<mat-list-item>
+		<button mat-stroked-button color="primary" routerLink="/voters/find">Back</button>
+		<span class='spacer'></span>
+		<button mat-raised-button color="primary" (click)="finishSurvey()">End Survey</button>
+	</mat-list-item>
+</mat-list>
+
+<mat-spinner *ngIf="isLoading"></mat-spinner>

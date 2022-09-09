@@ -6,7 +6,8 @@ const questionSchema = mongoose.Schema({
 	responses: [
 		{ 
 			response: { type: String },
-			goto: { type: String}
+			goto: { type: String},
+			_id: { type: mongoose.Schema.Types.Mixed }
 		},
 	],
 	gotoEnabled: { type: Boolean, required: true},

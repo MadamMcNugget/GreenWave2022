@@ -1,0 +1,35 @@
+:host {
+	display: block;
+	margin-top: 1rem;
+}
+
+mat-spinner {
+	margin: auto;
+}
+
+mat-paginator {
+	margin-top: 1rem;
+}
+
+.spacer {
+	flex: 1 1 auto;
+}
+
+table {
+	width: 100%;
+}
+
+td{
+	border-right: 1px solid #ddd;
+	font-size: 1.2em;
+}
+
+.big-button{
+	padding: 0.5em;
+	font-size: 1.2em;
+}
+
+.top-right{
+	float: right;
+	text-align: right;
+}

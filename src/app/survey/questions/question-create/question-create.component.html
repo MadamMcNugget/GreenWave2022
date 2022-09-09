@@ -1,0 +1,108 @@
+<h2>{{data.mode}} a Question</h2>
+
+<form [formGroup]="questionCreateForm">   
+	<mat-form-field>
+		<textarea
+		 	matInput 
+			required
+			cdkTextareaAutosize
+			cdkAutosizeMinRows="2"
+			type="text" 
+			name="question" 
+			formControlName="question"
+			placeholder="Survey Question" 
+			></textarea>
+		<mat-error *ngIf="questionCreateForm.get('question')!.invalid"> Please enter a survey question </mat-error> 
+	</mat-form-field>
+	<h4>Response Type:</h4>
+	<mat-radio-group aria-label="Select the Response Type" required formControlName="responseType" name="responseType">
+		<mat-radio-button *ngFor="let type of responseTypes" [value]="type">{{type}}</mat-radio-button>
+	</mat-radio-group>
+	<h4>Responses</h4>
+	<div [ngSwitch]="true">	
+		<div *ngSwitchCase="questionCreateForm.get('responseType')!.value === 'Multiple Choice' || questionCreateForm.get('responseType')!.value === 'Checkbox'">
+			<div formArrayName="responses" *ngFor="let resp of getResponseControls(); let i=index">
+				<mat-form-field>
+					<textarea
+					 	matInput 
+						cdkTextareaAutosize
+						cdkAutosizeMinRows="1"
+						type="text" 
+						name="responses" 
+						formControlName="{{i}}"
+						placeholder="Response {{i+1}}" 
+						></textarea>
+
+					<mat-icon matSuffix (click)="removeResponse(i)" matTooltip="Remove this response">clear</mat-icon>
+				</mat-form-field>					
+				
+			</div>
+			<button 
+				mat-flat-button 
+				color="accent" 
+				type="button" 
+				(click)="addResponse()"
+				>Add Response</button>
+		</div>
+		<div *ngSwitchCase="questionCreateForm.get('responseType')!.value === 'Text'">
+			<mat-form-field>
+			    <input matInput [disabled]="true" placeholder="Text Answer...">
+			</mat-form-field>
+		</div>
+	</div>
+	<br>
+	<mat-dialog-actions align="end">
+		<button 
+			*ngIf="data.mode==='Edit'"
+			mat-flat-button color="warn" 
+			class="action-button"
+			[mat-dialog-close]="{
+				mode: 'Delete',
+				question: ' ', 
+				responseType: ' ',
+				responses: ' ',
+				section: data.s,
+				index: data.i
+			}"
+			>Delete Question
+		</button>
+		<button 
+			mat-stroked-button color="primary" 
+			class="action-button"
+			(click)="cancelSave()"
+			>Cancel
+		</button> 
+		<button 
+			mat-raised-button color="primary" 
+			class="action-button"
+			type="submit"
+			[disabled]="questionCreateForm.invalid"
+			[mat-dialog-close]="{
+				mode: data.mode,
+				question: questionCreateForm.get('question')!.value, 
+				responseType: questionCreateForm.get('responseType')!.value,
+				responses: questionCreateForm.get('responses')!.value,
+				section: data.s,
+				index: data.i
+			}"
+			>Save Question
+		</button>  
+	</mat-dialog-actions> 
+</form>																			
+
+<!-- 2 way binding: done with [(ngModel)], updates with every keystroke -->
+
+<!-- <p> {{ newPost }}   </p>  {{ }} is string interpolation. used to refer to something method, or property name, stored in .ts file 
+	 [(ngModel)]="someName" is 2 way binding.
+
+	 [ngModel] is 1 way binding. used to populate the 'edit' form. the '?' forces angular to check whether post exists before it tries to read the title, and will populate it with nothing if post does not exist
+
+	 template driven approach for forms
+	 - simple
+	 - lets angular refer everything
+	 - ngModel and any validators are not how to handle forms anymore
+	 reactive approach
+	 - allows for own validation
+	 - let typescipt define code and tell angular what controls defined the in typescript to input here. 
+	 - import ReactiveFormsModule in app.module
+-->

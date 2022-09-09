@@ -1,0 +1,126 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+
+<mat-card *ngIf="!isLoading">
+	<mat-card-header>
+		<mat-card-title>{{mode}} a Volunteer</mat-card-title>
+	</mat-card-header>
+	<mat-divider></mat-divider><br>
+	<h3>Volunter Information</h3>
+	<form [formGroup]="volunteerFormGroup">
+		<mat-card-content>
+			<mat-form-field appearance="outline">
+				<mat-label>First Name</mat-label>
+				<input  matInput
+						type="text"
+						name="firstName"
+						formControlName="firstName"
+						placeholder="First Name">
+			</mat-form-field>
+			<mat-form-field appearance="outline">
+				<mat-label>Last name</mat-label>
+				<input  matInput
+						type="text"
+						name="lastName"
+						formControlName="lastName"
+						placeholder="Last Name">
+			</mat-form-field>
+			<mat-form-field appearance="outline">
+				<mat-label>Email</mat-label>
+				<input  matInput
+						required 
+						email
+						type="text"
+						name="email"
+						formControlName="email"
+						placeholder="Email">
+				<mat-error *ngIf="volunteerFormGroup.get('email')!.invalid">Please enter a valid email</mat-error>
+			</mat-form-field>
+			<mat-form-field appearance="outline">
+				<mat-label>Phone Number</mat-label>
+				<input  matInput
+						type="text"
+						name="phoneNumber"
+						formControlName="phoneNumber"
+						placeholder="Phone Number">
+			</mat-form-field>
+			<mat-form-field appearance="outline">
+				<mat-label>Address</mat-label>
+				<input  matInput
+						type="text"
+						name="address"
+						formControlName="address"
+						placeholder="Address">
+			</mat-form-field>
+			<!-- <mat-list>
+				<mat-list-item>
+					Intake Replied
+					<mat-icon class="tooltip-icon" matTooltip="Check if volunteer replied to intake email" matTooltipPosition="after">
+						help
+					</mat-icon>
+					<span class="spacer"></span>
+					<mat-slide-toggle
+						formControlName="intake"
+						labelPosition="before"
+						color="primary"
+						>
+					</mat-slide-toggle>
+				</mat-list-item>
+			</mat-list> -->
+
+			<!-- <h3>Volunteer Roles</h3>
+			<div formGroupName="roles">
+				<mat-list>
+					<mat-list-item *ngFor="let role of roles">
+						{{role.role}}
+						<mat-icon class="tooltip-icon" matTooltip="{{role.description}}" matTooltipPosition="after">
+							help
+						</mat-icon>
+						<span class="spacer"></span>
+						<mat-slide-toggle
+							formControlName="{{role.controlName}}"
+							labelPosition="before"
+							color="primary"
+							>
+						</mat-slide-toggle>
+					</mat-list-item>
+				</mat-list>
+			</div> -->
+
+			<h3>Notes</h3>
+			<mat-form-field appearance="outline">
+				<mat-label>Notes</mat-label>
+				<textarea 	matInput
+							cdkTextareaAutosize
+	            			#autosize="cdkTextareaAutosize"
+	            			cdkAutosizeMinRows="8"
+	            			formControlName="notes" ></textarea>
+			</mat-form-field>
+
+			<mat-divider></mat-divider>
+		</mat-card-content>
+		<mat-card-actions  align="end">
+			<mat-error *ngIf="volunteerFormGroup.get('email')!.invalid">Something is wrong with the form. Please check the form again.</mat-error>
+			<button mat-raised-button color="primary" type="button" (click)="onSaveVolunteer()">Save</button>
+		</mat-card-actions>
+	</form>
+</mat-card>
+
+
+
+
+<!-- 2 way binding: done with [(ngModel)], updates with every keystroke -->
+
+<!-- <p> {{ newPost }}   </p>  {{ }} is string interpolation. used to refer to something method, or property name, stored in .ts file 
+	 [(ngModel)]="someName" is 2 way binding.
+
+	 [ngModel] is 1 way binding. used to populate the 'edit' form. the '?' forces angular to check whether post exists before it tries to read the title, and will populate it with nothing if post does not exist
+
+	 template driven approach for forms
+	 - simple
+	 - lets angular refer everything
+	 - ngModel and any validators are not how to handle forms anymore
+	 reactive approach
+	 - allows for own validation
+	 - let typescipt define code and tell angular what controls defined the in typescript to input here. 
+	 - import ReactiveFormsModule in app.module
+-->
