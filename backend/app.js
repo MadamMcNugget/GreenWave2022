@@ -11,12 +11,6 @@ const pollsRoutes = require("./routes/polls");
 const volunteersRoutes = require("./routes/volunteers");
 const app = express();
 
-const corsOptions ={
-	origin:'http://localhost:3000', 
-	credentials:true,            //access-control-allow-credentials:true
-	optionSuccessStatus:200
-}
-
 //mongoose.connect("mongodb://daza:" + process.env.MONGO_ATLAS_PW + "@ac-4im0bdv-shard-00-00.dzhrvu7.mongodb.net:27017,ac-4im0bdv-shard-00-01.dzhrvu7.mongodb.net:27017,ac-4im0bdv-shard-00-02.dzhrvu7.mongodb.net:27017/?ssl=true&replicaSet=atlas-vm7zgt-shard-0&authSource=admin&retryWrites=true&w=majority" )
 mongoose.connect("mongodb+srv://daza:" + process.env.MONGO_ATLAS_PW + "@cluster0.dzhrvu7.mongodb.net/Cluster0?retryWrites=true&w=majority", { useNewUrlParser: true })
 	.then( () => {
@@ -48,7 +42,7 @@ function ignoreFavicon(req, res, next) {  // browser will try to make a second r
     next();
   }
 }
-app.use(cors(corsOptions));
+app.use(cors());
 
 //app.use("/api/posts", postsRoutes);
 app.use("/api/user", userRoutes);
