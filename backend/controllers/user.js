@@ -35,6 +35,7 @@ exports.userLogin = (req, res, next) => {
 				return res.status(401).json({message: 'Auth failed' });
 			}
 			fetchedUser = user;
+			console.log( user );
 			// if reached here then user found! check for matching password
 			return bcrypt.compare(req.body.password, user.password);
 		})
