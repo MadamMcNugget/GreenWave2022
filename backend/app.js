@@ -2,7 +2,7 @@ const path = require("path");	// pathing shipped with nodeJS. construct path tha
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');	
-const cors = require('cors');
+// const cors = require('cors');
 
 //const postsRoutes = require("./routes/posts");	// any http requests for posts is here
 const userRoutes = require("./routes/user");
