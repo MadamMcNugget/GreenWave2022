@@ -20,6 +20,8 @@ router.post("/login", UserController.userLogin);
 
 router.get("/view", UserController.viewUsers);
 
+router.get("/test", UserController.test );
+
 router.put("/:id", UserController.editUser);
 
 module.exports = router;
