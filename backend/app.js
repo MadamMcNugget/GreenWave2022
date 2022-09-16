@@ -29,10 +29,22 @@ app.use("/", express.static(path.join( __dirname, "angular")));
 
 app.use( (req, res, next) => {
 	res.setHeader('Access-Control-Allow-Origin', '*');		// sets which domains are allowed to access our resources. here, app may sent request to all domains and they can access our resources
-	res.setHeader('Access-control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');	// sets what headers the domain can request along with default headers. request may have these extra headers
+	res.setHeader('Access-control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Origin, Authorization');	// sets what headers the domain can request along with default headers. request may have these extra headers
 	res.setHeader('Access-control-Allow-Methods', "GET, POST, PATCH, PUT, DELETE, OPTIONS");	//Allows which http requests may be sent. OPTIONS checks if post request is valid.
+	res.setHeader('Access-Control-Allow-Credentials', true);
+	// if (req.method === 'OPTIONS') {
+  //   res.status(200).end()
+  //   return
+  // }
+	// return await fn(req, res);
 	next();
 })
+
+// app.use(cors({
+//   origin: "http://localhost:3000",
+//   credentials: true,            //access-control-allow-credentials:true
+//   optionSuccessStatus: 200,
+// }));
 
 
 function ignoreFavicon(req, res, next) {  // browser will try to make a second request to find a favicon.ico, executing middleware twice. this function to is ignore that 2nd request
@@ -42,7 +54,6 @@ function ignoreFavicon(req, res, next) {  // browser will try to make a second r
     next();
   }
 }
-app.use(cors());
 
 //app.use("/api/posts", postsRoutes);
 app.use("/api/user", userRoutes);
