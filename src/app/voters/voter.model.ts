@@ -1,10 +1,11 @@
 export interface Voter{
 	[ x: string ]: any;
-	poll: number;
-	sequence: number;
 	name: string;
-	streetName: string;
+	propertyAddress: string,
 	houseNum: string;
+	streetSuffix: string,
+	streetName: string;
+	streetType: string,
 	aptNum: string;
 	city: string;
 	support: string;
@@ -14,8 +15,15 @@ export interface Voter{
 	}[]
 	canvassedBy: string,
 	canvassedDate: Date | null,
+	id: string,
+	
+	electorId: number,
+	rc: string,
+	voted: boolean,
+	locationName: string,
+	recordedDate: string,
+	votingChannel: string,
+
+	order: number,
 	status: string,
-	needsManualEntry: boolean,
-	GVoteLink: string,
-	id: string
 }

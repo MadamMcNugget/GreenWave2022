@@ -9,6 +9,7 @@ const userRoutes = require("./routes/user");
 const surveysRoutes = require("./routes/surveys");
 const pollsRoutes = require("./routes/polls");
 const volunteersRoutes = require("./routes/volunteers");
+const votersRoutes = require("./routes/voters");
 const app = express();
 
 //mongoose.connect("mongodb://daza:" + process.env.MONGO_ATLAS_PW + "@ac-4im0bdv-shard-00-00.dzhrvu7.mongodb.net:27017,ac-4im0bdv-shard-00-01.dzhrvu7.mongodb.net:27017,ac-4im0bdv-shard-00-02.dzhrvu7.mongodb.net:27017/?ssl=true&replicaSet=atlas-vm7zgt-shard-0&authSource=admin&retryWrites=true&w=majority" )
@@ -60,6 +61,7 @@ app.use("/api/user", userRoutes);
 app.use("/api/surveys", surveysRoutes);
 app.use("/api/polls", pollsRoutes);
 app.use("/api/volunteers", volunteersRoutes);
+app.use("/api/voter", votersRoutes);
 
 app.use( ( req, res, next ) => {
 	res.sendFile( path.join( __dirname, "angular", "index.html" ));

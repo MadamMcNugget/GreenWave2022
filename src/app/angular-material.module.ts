@@ -17,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { MatInputModule } from '@angular/material/input';
 import { MatChipsModule } from '@angular/material/chips';
@@ -63,6 +64,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 		MatStepperModule,
 		MatSlideToggleModule,
 		MatExpansionModule,
+		MatProgressBarModule,
 
 		DragDropModule,
 		TextFieldModule,

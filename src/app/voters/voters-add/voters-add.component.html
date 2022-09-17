@@ -1,1 +1,103 @@
-<p>voters-add works!</p>
+<br>
+
+<!-- Table for list of all case mappings -->
+<div class="mat-elevation-z8">
+
+	<!-- Table Toolbar -->
+	<mat-toolbar class="action-bar">
+		<button mat-raised-button color="accent" (click)="importCsvFile()">
+			<mat-icon>input</mat-icon> Import Voters
+		</button> &nbsp;
+
+		<span class="spacer"></span>
+		
+		<!-- import tracker -->
+		<span *ngIf="( executionStatus == ExecutionStatus.IMPORTED )">
+			<!--<span class='toolbar-tracker'>-->
+			<mat-icon
+				matTooltip="there are errors"
+				color="warn" matTooltipClass="tooltip" *ngIf="successfulImportCount != totalOperations">error</mat-icon>
+			Imported: {{ successfulImportCount }}/{{ totalOperations }} ({{ successfulImportCount/totalOperations*100 |
+			number: '1.0-2' }}%)
+		</span>
+
+		<!-- progress tracker -->
+		<span *ngIf="( executionStatus != ExecutionStatus.NOT_STARTED ) && ( executionStatus != ExecutionStatus.IMPORTED )">
+			Progress: {{ orderInProgress }}/{{ totalOperations }} ({{ progressValue | number: '1.0-2' }}%)
+		</span>
+
+		<span class="spacer"></span>
+
+		<button mat-raised-button color="primary" (click)="resumeOperations()"
+			*ngIf="executionFailedAt>0" class="execution-button">
+			<mat-icon>replay</mat-icon> Resume
+		</button>
+		<button mat-raised-button color="primary" (click)="executeOperations( 0 )" *ngIf="executionFailedAt<=0" 
+			class="execution-button" [disabled]=" 
+			( executionStatus == ExecutionStatus.IN_PROGRESS ) || ( executionStatus == ExecutionStatus.NOT_STARTED )">
+			<mat-icon>play_circle_outline</mat-icon> Execute
+		</button>
+	</mat-toolbar>
+
+	<!-- Progress bar -->
+	<mat-progress-bar
+		*ngIf="( executionStatus != ExecutionStatus.NOT_STARTED ) && ( executionStatus != ExecutionStatus.IMPORTED )"
+		[mode]="executionStatus == ExecutionStatus.IN_PROGRESS ? 'buffer' : 'determinate'" [value]="progressValue"
+		color="accent">
+	</mat-progress-bar>
+
+	<!-- Table -->
+	<table mat-table [dataSource]="dataSource">
+
+		<!-- Table Headers -->
+		<ng-container matColumnDef="order">
+			<th mat-header-cell *matHeaderCellDef>Order </th>
+			<td mat-cell *matCellDef="let voter">{{ voter.order }}</td>
+		</ng-container>
+		<ng-container matColumnDef="electorId">
+			<th mat-header-cell *matHeaderCellDef>Elector ID</th>
+			<td mat-cell *matCellDef="let voter">{{ voter.electorId }}</td>
+		</ng-container>
+		<ng-container matColumnDef="name">
+			<th mat-header-cell *matHeaderCellDef>Name</th>
+			<td mat-cell *matCellDef="let voter">{{ voter.name }}</td>
+		</ng-container>
+		<ng-container matColumnDef="address">
+			<th mat-header-cell *matHeaderCellDef>Address</th>
+			<td mat-cell *matCellDef="let voter">{{ voter.propertyAddress }}</td>
+		</ng-container>
+		<ng-container matColumnDef="status">
+			<th mat-header-cell *matHeaderCellDef>Status</th>
+			<td mat-cell *matCellDef="let voter">
+				<ng-container [ngSwitch]="voter.status">
+					<mat-icon *ngSwitchCase="ImportStatus.IMPORT_SUCCESS"
+						color="primary">check_box</mat-icon>
+					<mat-icon *ngSwitchCase="ImportStatus.IMPORT_FAIL" color="warn">
+						cancel_presentation</mat-icon>
+					<mat-icon *ngSwitchCase="ImportStatus.EXECUTION_IN_PROGRESS"
+						color="accent">cached</mat-icon>
+					<mat-icon *ngSwitchCase="ImportStatus.EXECUTION_SUCCESS"
+						class="success">check_circle</mat-icon>
+					<mat-icon *ngSwitchCase="ImportStatus.EXECUTION_FAIL" color="warn">
+						cancel</mat-icon>
+				</ng-container>
+			</td>
+		</ng-container>
+
+		<tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+		<tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+		
+	</table>
+
+	<mat-paginator pageSize="10" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+		aria-label="Select page of voters">
+	</mat-paginator>
+</div>
+
+
+Execution Status: {{ executionStatus }} <br>
+Failed to add:
+<div *ngFor="let voter of votersFailedToAdd">
+	<span>Order: {{ voter.order }}, Name: {{ voter.name }}, Elector ID: {{ voter.electorId }}</span><br>
+</div>
+<br><br>

@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';	// if this 'page' is not part of the DOM, w
 import { Question } from '../questions/question.model';
 import { Survey } from '../survey.model';
 import { SurveyAnswer } from '../survey-answer.model';
-import { Voter } from '../voter.model';
+import { Voter } from '../../voters/voter.model';
 import { AuthService } from '../../auth/auth.service';
 import { SurveyService } from '../survey.service';
 import { QuestionService } from '../questions/questions.service';
@@ -65,31 +65,6 @@ export class SurveyAnswerViewComponent implements OnInit,  OnDestroy {
 
 	ngOnDestroy () {
 		//this.surveySub.unsubscribe();
-	}
-
-	updateToGVote() {
-		this.surveyService.updateToGVote(this.voters).subscribe( data => {
-			let snackBarRef = this._snackBar.open("GVote has been updated! Anything left over needs manual input.", "Ok")
-			this.surveyService.getAnsweredVoters(this.votersPerPage, this.currentPage).subscribe( data => {
-				this.voters = data.voters;
-				this.totalVoters = data.totalCount;
-				this.isLoading = false;
-			});
-		});
-	}
-
-	finish(voter:Voter, index: number) {
-		if (this.voters[index].needsManualEntry){
-			this.voters[index].needsManualEntry = false;
-			this.manualCount--;
-		}
-		if (this.voters[index].status !== '3complete'){
-			this.voters[index].status = '3complete';
-			this.completeCount++;
-			this.canvassedTodayCount--;
-		}
-		this.surveyService.updateVoter(voter.id);
-		this.surveyService.getAnsweredVoters(this.votersPerPage, this.currentPage );
 	}
 
 	onChangedPage(pageData: PageEvent) {

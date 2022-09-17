@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, OnDestroy, ChangeDetectorRef, ViewChild } from "@angular/core";
 import { Subscription } from 'rxjs';	// if this 'page' is not part of the DOM, we want to stop subscriptions as well, cuz will cause memory leak
-import { Voter } from '../voter.model';
+import { Voter } from '../../voters/voter.model';
 import { SurveyService } from '../survey.service';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -76,12 +76,15 @@ export class FindVotersComponent implements OnInit,  OnDestroy {
 			this.dataSource.paginator = this.paginator;
 		}
 
-		// this.dataSource.filterPredicate = (data:Voter, filter: string): boolean => {
-		// 	var d = data.aptNum + "-" + data.houseNum;
-		//     return d.includes(filter);
-		// };
+		this.dataSource.filterPredicate = (data:any, filter: string): boolean => {
+			var d = data.aptNum + "-" + data.houseNum;
+		    return d.includes(filter);
+		};
 		
 		// this.applyFilter(this.houseNum);
+		// this.dataSource.filterPredicate = function( data: any , filter: string ): boolean {
+		// 	return data.propertyAddress.toLowerCase().includes( filter)
+		// }
 		this.dataSource.filter = this.houseNum;
 	}
 

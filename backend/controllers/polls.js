@@ -802,12 +802,13 @@ exports.findByStreet = (req,res,next) => {
 	if (!isNaN(str[0])) {	//isNaN stands for 'Not a Number'
 		houseNum = str[0];
 		streetName = str[1];
-		query = { houseNum: houseNum, streetName: new RegExp(streetName) };
+		query = { houseNum: houseNum, streetName: new RegExp(streetName, "i") };
 	} else {
 		houseNum = "";
 		streetName = street;
-		query = { streetName: new RegExp(streetName) };
+		query = { streetName: new RegExp(streetName, "i") };
 	}
+	console.log( `query: `, query );
 	Voter.find( query ).sort( {city: 1, streetName: 1, houseNum: 1, aptNum: 1 }).then( voters => {
 		res.status(200).json({
 			message: "fetched selected voters",

@@ -1,0 +1,40 @@
+<h1 mat-dialog-title>Import</h1>
+
+<mat-dialog-content>
+
+	<div class="container" appDragAndDrop (fileDropped)="onFileDropped($event)">
+		<input type="file" #fileDropRef id="fileDropRef" (change)="fileBrowseHandler($event)" accept=".csv" />
+		<mat-icon class="icon-display">file_upload</mat-icon> <br><br>
+		<h3>Drag and Drop</h3>
+		<p>or</p>
+		<button mat-flat-button color="primary">Browse File</button>
+	</div>
+
+	<div class="files-list">
+		<div class="single-file" *ngFor="let file of files; let i = index">
+			<mat-icon class='csv-icon'>description</mat-icon>
+			<div class="info">
+				<h4 class="name">
+					{{ file?.name }}
+				</h4>
+				<p class="size">
+					{{ formatBytes(file?.size) }}
+				</p>
+				<mat-progress-bar class="progress-bar" *ngIf="progressValue != 0  || parsing"
+					color="accent" [value]="progressValue"
+					[mode]="parsing ? 'indeterminate' : 'determinate'" >
+				</mat-progress-bar>
+			</div>
+			&nbsp;
+			<button mat-raised-button color="warn" matTooltip="Remove selected file" (click)="deleteFile(i)"
+				[disabled]="parsing || progressValue > 0">
+				<mat-icon>delete</mat-icon>
+			</button>
+			&nbsp;
+			<button mat-raised-button color="primary" [disabled]="files[i] === null" (click)="onUpload()"
+				class="import-button">
+				Import
+			</button>
+		</div>
+	</div>
+</mat-dialog-content>

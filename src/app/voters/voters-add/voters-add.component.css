@@ -1,0 +1,72 @@
+table {
+	width: 100%;
+}
+
+tr.mapping-detail-row {
+	height: 0;
+}
+
+tr.mapping-row:hover {
+	background: gray;
+}
+
+.mapping-row td {
+	border-bottom-width: 0;
+}
+
+.mapping-details {
+	overflow: hidden;
+	display: flex;
+}
+
+.mapping-description {
+	padding: 16px;
+	width: 100%;
+}
+
+/* Columns */
+.mat-column-status, .mat-column-discard, .mat-column-expand {
+	width: 60px;
+	text-align: center;
+}
+
+/* action bar & footer */
+.action-bar {
+	font-size: medium;
+
+}
+
+.spacer {
+	flex: 1 1 auto;
+}
+
+/* icon colors */
+.success {
+	color: springgreen;
+}
+.status-pk-verified {
+	color: goldenrod;
+}
+.imported {
+	color: orange;
+}
+
+/* button */
+.execution-button {
+	width: 10em;
+}
+
+/*snackbar-color */
+.warn-snackbar {
+	background: indianred;
+}
+
+/* toolbar */
+.toolbar-tracker {
+	font-size: small;
+	font-weight: 0;
+}
+
+::ng-deep .tooltip {
+	font-size: medium;
+}

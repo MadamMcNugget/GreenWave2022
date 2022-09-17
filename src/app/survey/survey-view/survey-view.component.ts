@@ -8,7 +8,7 @@ import { SurveyService } from '../survey.service';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { MatListModule } from '@angular/material/list';
-import { Voter } from "../voter.model";
+import { Voter } from "../../voters/voter.model";
 import { Question } from "../questions/question.model";
 
 @Component( {

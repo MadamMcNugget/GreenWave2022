@@ -8,7 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Question } from './questions/question.model';
 import { Survey } from './survey.model';
-import { Voter } from './voter.model';
+import { Voter } from '../voters/voter.model';
 import { AuthService } from '../auth/auth.service';
 import { environment } from '../../environments/environment';
 
