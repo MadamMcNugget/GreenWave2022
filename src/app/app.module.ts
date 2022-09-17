@@ -12,6 +12,7 @@ import { AngularMaterialModule } from './angular-material.module';
 
 import { VolunteersModule } from './volunteers/volunteers.module';
 import { SurveyModule } from './survey/survey.module';
+import { VotersModule } from './voters/voters.module';
 
 import { HeaderComponent } from './header/header.component';
 import { HomepageComponent } from './homepage/homepage.component';
@@ -38,7 +39,8 @@ import { ErrorInterceptor } from './error-interceptor';
 		FormsModule,
 		ReactiveFormsModule,
 		VolunteersModule,
-		SurveyModule
+		SurveyModule,
+		VotersModule
 	],
 	providers: [
 		{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},

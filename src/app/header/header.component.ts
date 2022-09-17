@@ -22,6 +22,7 @@ export class HeaderComponent {
 
 	@ViewChild('surveyMenuTrigger') surveyMenuTrigger!: MatMenuTrigger;
 	@ViewChild('volunteerMenuTrigger') volunteerMenuTrigger!: MatMenuTrigger;
+	@ViewChild('voterMenuTrigger') voterMenuTrigger!: MatMenuTrigger;
 
 	ngOnInit() {
 		this.userIsAuthenticated = this.authService.getIsAuth();
@@ -59,5 +60,13 @@ export class HeaderComponent {
 
 	closeVolunteerMenu() {
 		this.volunteerMenuTrigger.closeMenu();
+	}
+
+	openVoterMenu() {
+		this.voterMenuTrigger.openMenu();
+	}
+
+	closeVoterMenu() {
+		this.voterMenuTrigger.closeMenu();
 	}
 }

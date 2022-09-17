@@ -6,11 +6,11 @@ import { SurveyViewComponent} from './survey/survey-view/survey-view.component';
 import { SurveyAnswerViewComponent} from './survey/survey-answer-view/survey-answer-view.component';
 import { VolunteersCreateComponent } from './volunteers/volunteers-create/volunteers-create.component';
 import { VolunteersViewComponent } from './volunteers/volunteers-view/volunteers-view.component';
-// import { VolunteersEmailComponent } from './volunteers/volunteers-email/volunteers-email.component'; 
-// import { PollsAddComponent } from './survey/polls-add/polls-add.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { UsersViewComponent } from './auth/users-view/users-view.component';
 import { FindVotersComponent } from './survey/find-voters/find-voters.component';
+import { VotersAddComponent } from './voters/voters-add/voters-add.component';
+import { VotersViewAllComponent } from './voters/voters-view-all/voters-view-all.component';
 
 const routes: Routes = [
 	{ path: '', component: HomepageComponent },
@@ -21,10 +21,10 @@ const routes: Routes = [
 	{ path: 'volunteers/create', component: VolunteersCreateComponent, canActivate: [AuthGuard]  },
 	{ path: 'volunteers/view', component: VolunteersViewComponent, canActivate: [AuthGuard]  },
 	{ path: 'volunteers/edit/:volID', component: VolunteersCreateComponent, canActivate: [AuthGuard]  },
-	// { path: 'volunteers/email', component: VolunteersEmailComponent, canActivate: [AuthGuard]  },
-	// { path: 'polls/add', component: PollsAddComponent, canActivate: [AuthGuard] },
 	{ path: 'voters/find', component: FindVotersComponent, canActivate: [AuthGuard] },
 	{ path: 'voter/canvass/:id', component: SurveyViewComponent, canActivate: [AuthGuard]  },
+	{ path: 'voters/add', component: VotersAddComponent, canActivate: [AuthGuard]  },
+	{ path: 'voters/view-all', component: VotersViewAllComponent, canActivate: [AuthGuard]  },
 	{
 		path: 'auth', loadChildren: () => import( "./auth/auth.module" ).then( m => m.AuthModule
 		)
