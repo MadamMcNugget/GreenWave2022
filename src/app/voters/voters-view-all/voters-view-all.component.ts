@@ -24,7 +24,7 @@ export class VotersViewAllComponent implements OnInit {
 
 		this.isLoading = true;
 
-		this.votersService.getAllVoters().subscribe( ( voters: Voter[] ) => {
+		this.votersService.getAllVoters().subscribe( ( voters:any ) => {
 			console.log( voters );
 		})
 	}
