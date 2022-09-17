@@ -4,6 +4,10 @@
     {
       "src": "backend/server.js",
       "use": "@now/node"
+    },
+		{
+      "src": "src",
+      "use": "ng build"
     }
   ],
 	"routes": [
