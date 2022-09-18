@@ -25,7 +25,7 @@ app.use(ignoreFavicon);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false})); // supports only default features in the url encoding
-app.use("/images", express.static(path.join("backend/images")));	// any requests to this folder will be allowed to continue and fetch their files from here. requests to images forwared to backend/images
+// app.use("/images", express.static(path.join("backend/images")));	// any requests to this folder will be allowed to continue and fetch their files from here. requests to images forwared to backend/images
 app.use("/", express.static(path.join( __dirname, "angular")));
 
 app.use( (req, res, next) => {
