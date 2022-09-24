@@ -62,7 +62,7 @@
 			|| userStatus==='caller and canvasser')">Voters</button>
 		<button mat-menu-item [matMenuTriggerFor]="volunteerMenu"
 			*ngIf="userIsAuthenticated && (userStatus==='admin' || userStatus==='staff' || userStatus==='caller'
-			|| userStatus==='caller and canvasser')">Voters</button>
+			|| userStatus==='caller and canvasser')">Volunteers</button>
 		<button mat-menu-item (click)="onLogout()" *ngIf="userIsAuthenticated">Log Out</button>
 	</mat-menu>
 
