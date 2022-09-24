@@ -3,7 +3,7 @@
 	<span class="spacer"></span>
 
 	<!-- Toolbar menu for big screens -->
-	<ul *ngIf="currentScreenSize=='Large'">
+	<ul *ngIf="currentScreenSize=='Large' || currentScreenSize=='XLarge'">
 		<li *ngIf="userIsAuthenticated && userStatus==='admin'">
 			<button mat-button routerLink="/users/view" routerLinkActive="mat-accent">Users</button>
 		</li>
@@ -48,7 +48,7 @@
 
 	<!-------------------------- Icon menu fo SMALL screens ---------------------------->
 
-	<button mat-icon-button *ngIf="currentScreenSize=='Medium' && userIsAuthenticated" [matMenuTriggerFor]="menu">
+	<button mat-icon-button *ngIf="(currentScreenSize=='Medium' || currentScreenSize=='Small' || currentScreenSize=='XSmall') && userIsAuthenticated" [matMenuTriggerFor]="menu">
 		<mat-icon>menu</mat-icon>
 	</button>
 	<mat-menu #menu="matMenu">
@@ -66,11 +66,11 @@
 		<button mat-menu-item (click)="onLogout()" *ngIf="userIsAuthenticated">Log Out</button>
 	</mat-menu>
 
-	<ul *ngIf="currentScreenSize=='Medium'">
-		<li *ngIf="!userIsAuthenticated">
+	<ul *ngIf="(currentScreenSize=='Medium' || currentScreenSize=='Small' || currentScreenSize=='XSmall') && !userIsAuthenticated">
+		<li>
 			<a mat-button routerLink="/auth/login" routerLinkActive="mat-accent">Login</a>
 		</li>
-		<li *ngIf="!userIsAuthenticated">
+		<li>
 			<a mat-button routerLink="/auth/signup" routerLinkActive="mat-accent">Sign Up</a>
 		</li>
 	</ul>

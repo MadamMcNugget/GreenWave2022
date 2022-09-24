@@ -33,8 +33,11 @@ export class HeaderComponent {
 		private breakpointObserver: BreakpointObserver
 	) {
 		breakpointObserver.observe( [
+			Breakpoints.XSmall,
+			Breakpoints.Small,
 			Breakpoints.Medium,
-			Breakpoints.Large
+			Breakpoints.Large,
+			Breakpoints.XLarge
 		] ).pipe( takeUntil( this.destroyed ) )
 			.subscribe( result => {
 				for ( const query of Object.keys( result.breakpoints ) ) {
