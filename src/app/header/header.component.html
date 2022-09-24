@@ -1,7 +1,9 @@
 <mat-toolbar color="primary">
 	<span><a routerLink="/">Green Wave</a></span>
 	<span class="spacer"></span>
-	<ul>
+
+	<!-- Toolbar menu for big screens -->
+	<ul *ngIf="currentScreenSize=='Large'">
 		<li *ngIf="userIsAuthenticated && userStatus==='admin'">
 			<button mat-button routerLink="/users/view" routerLinkActive="mat-accent">Users</button>
 		</li>
@@ -14,41 +16,14 @@
 				Canvass <mat-icon>arrow_drop_down</mat-icon>
 			</button>
 		</li>
-		<mat-menu #surveyMenu="matMenu" [overlapTrigger]="false">
-			<span (mouseleave)="closeSurveyMenu()">
-				<button mat-menu-item routerLink="/voters/find">
-					<span>Start Canvassing</span>
-				</button>
-				<button mat-menu-item routerLink="/surveyanswer/view">
-					<span>View Canvassed</span>
-				</button>
-				<button mat-menu-item routerLink="/survey/create" *ngIf="userStatus==='admin' || userStatus==='staff'">
-					<span>Edit Canvass Survey</span>
-				</button>
-			</span>
-		</mat-menu>
 
 		<!-- Voter menu -->
 		<li *ngIf="userIsAuthenticated && 
 			(userStatus==='admin' || userStatus==='staff' || userStatus==='canvasser' || userStatus==='caller and canvasser')">
-			<button mat-button [matMenuTriggerFor]="voterMenu" #voterMenuTrigger="matMenuTrigger"
-				(click)="openVoterMenu()">
+			<button mat-button [matMenuTriggerFor]="voterMenu" #voterMenuTrigger="matMenuTrigger" (click)="openVoterMenu()">
 				Voters <mat-icon>arrow_drop_down</mat-icon>
 			</button>
 		</li>
-		<mat-menu #voterMenu="matMenu" [overlapTrigger]="false">
-			<span (mouseleave)="closeVoterMenu()">
-				<button mat-menu-item routerLink="/voters/add" *ngIf="userIsAuthenticated && 
-				(userStatus==='admin' || userStatus==='staff')">
-					<mat-icon>add_circle_outline</mat-icon>
-					<span>Add</span>
-				</button>
-				<button mat-menu-item routerLink="/voters/view-all">
-					<mat-icon>people_outline</mat-icon>
-					<span>View All</span>
-				</button>
-			</span>
-		</mat-menu>
 
 		<!-- Volunteers menu -->
 		<li *ngIf="userIsAuthenticated && 
@@ -58,18 +33,6 @@
 				Volunteers <mat-icon>arrow_drop_down</mat-icon>
 			</button>
 		</li>
-		<mat-menu #volunteerMenu="matMenu" [overlapTrigger]="false">
-			<span (mouseleave)="closeVolunteerMenu()">
-				<button mat-menu-item routerLink="/volunteers/create">
-					<mat-icon>add_circle_outline</mat-icon>
-					<span>Create</span>
-				</button>
-				<button mat-menu-item routerLink="/volunteers/view">
-					<mat-icon>people_outline</mat-icon>
-					<span>View All</span>
-				</button>
-			</span>
-		</mat-menu>
 
 		<li *ngIf="!userIsAuthenticated">
 			<a mat-button routerLink="/auth/login" routerLinkActive="mat-accent">Login</a>
@@ -82,4 +45,80 @@
 		</li>
 
 	</ul>
+
+	<!-------------------------- Icon menu fo SMALL screens ---------------------------->
+
+	<button mat-icon-button *ngIf="currentScreenSize=='Medium' && userIsAuthenticated" [matMenuTriggerFor]="menu">
+		<mat-icon>menu</mat-icon>
+	</button>
+	<mat-menu #menu="matMenu">
+		<button mat-menu-item routerLink="/users/view" routerLinkActive="mat-accent"
+			*ngIf="userIsAuthenticated && userStatus==='admin'">Users</button>
+		<button mat-menu-item [matMenuTriggerFor]="surveyMenu"
+			*ngIf="userIsAuthenticated && (userStatus==='admin' || userStatus==='staff' || userStatus==='canvasser'
+			|| userStatus==='caller and canvasser')">Canvass</button>
+		<button mat-menu-item [matMenuTriggerFor]="voterMenu"
+			*ngIf="userIsAuthenticated && (userStatus==='admin' || userStatus==='staff' || userStatus==='canvasser'
+			|| userStatus==='caller and canvasser')">Voters</button>
+		<button mat-menu-item [matMenuTriggerFor]="volunteerMenu"
+			*ngIf="userIsAuthenticated && (userStatus==='admin' || userStatus==='staff' || userStatus==='caller'
+			|| userStatus==='caller and canvasser')">Voters</button>
+		<button mat-menu-item (click)="onLogout()" *ngIf="userIsAuthenticated">Log Out</button>
+	</mat-menu>
+
+	<ul *ngIf="currentScreenSize=='Medium'">
+		<li *ngIf="!userIsAuthenticated">
+			<a mat-button routerLink="/auth/login" routerLinkActive="mat-accent">Login</a>
+		</li>
+		<li *ngIf="!userIsAuthenticated">
+			<a mat-button routerLink="/auth/signup" routerLinkActive="mat-accent">Sign Up</a>
+		</li>
+	</ul>
+
+	<!--------------------------- Sub Menus ------------------------------------------>
+
+	<!-- Canvass/Survey Menu -->
+	<mat-menu #surveyMenu="matMenu" [overlapTrigger]="false">
+		<span (mouseleave)="closeSurveyMenu()">
+			<button mat-menu-item routerLink="/voters/find">
+				<span>Start Canvassing</span>
+			</button>
+			<button mat-menu-item routerLink="/surveyanswer/view">
+				<span>View Canvassed</span>
+			</button>
+			<button mat-menu-item routerLink="/survey/create" *ngIf="userStatus==='admin' || userStatus==='staff'">
+				<span>Edit Canvass Survey</span>
+			</button>
+		</span>
+	</mat-menu>
+
+	<!-- Voter Menu -->
+	<mat-menu #voterMenu="matMenu" [overlapTrigger]="false">
+		<span (mouseleave)="closeVoterMenu()">
+			<button mat-menu-item routerLink="/voters/add" *ngIf="userIsAuthenticated && 
+			(userStatus==='admin' || userStatus==='staff')">
+				<mat-icon>add_circle_outline</mat-icon>
+				<span>Add</span>
+			</button>
+			<button mat-menu-item routerLink="/voters/view-all">
+				<mat-icon>people_outline</mat-icon>
+				<span>View All</span>
+			</button>
+		</span>
+	</mat-menu>
+
+	<!-- Volunteers Menu -->
+	<mat-menu #volunteerMenu="matMenu" [overlapTrigger]="false">
+		<span (mouseleave)="closeVolunteerMenu()">
+			<button mat-menu-item routerLink="/volunteers/create">
+				<mat-icon>add_circle_outline</mat-icon>
+				<span>Create</span>
+			</button>
+			<button mat-menu-item routerLink="/volunteers/view">
+				<mat-icon>people_outline</mat-icon>
+				<span>View All</span>
+			</button>
+		</span>
+	</mat-menu>
+
 </mat-toolbar>

@@ -33,6 +33,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { LayoutModule } from '@angular/cdk/layout';
 
 @NgModule( {
 	exports: [
@@ -68,7 +69,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 
 		DragDropModule,
 		TextFieldModule,
-		ScrollingModule
+		ScrollingModule,
+		LayoutModule
 	]
 } )
 

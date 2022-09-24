@@ -11,10 +11,6 @@ mat-spinner {
   align-items: center;
 }
 
-mat-paginator {
-	margin-top: 1rem;
-}
-
 .info-text {
 	text-align: center;
 }

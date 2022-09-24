@@ -26,9 +26,6 @@ export class FindVotersComponent implements OnInit,  OnDestroy {
 	displayedColumns: string[] = [
 		'name',
 		'address',
-		'city',
-		'support',
-		'canvassedDate',
 		'canvass'
 	]
 	houseNum:string = '';

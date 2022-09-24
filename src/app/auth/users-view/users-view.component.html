@@ -1,8 +1,8 @@
-<mat-list class="userbox">
+<mat-list>
 	<mat-list-item>
 		<h2>All Users</h2>
 		<span class="spacer"></span>
-		<mat-form-field class="filter-search">
+		<mat-form-field >
 			<input matInput (keyup)="applyFilter($event)" placeholder="Search">
 			<span matPrefix><mat-icon>search</mat-icon> &nbsp;</span>
 		</mat-form-field>
@@ -12,9 +12,9 @@
 
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 
-<div class="userbox">
+<div class="mat-elevation-z8">
 
-	<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+	<table mat-table [dataSource]="dataSource" matSort>
 
 		<!-- Position Column -->
 		<ng-container matColumnDef="email">

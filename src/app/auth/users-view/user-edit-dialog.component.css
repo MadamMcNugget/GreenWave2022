@@ -1,9 +1,7 @@
-mat-form-field {
-	width: 20em;
-}
 
 mat-radio-button {
 	width: 20em;
+	min-width: 5em;
 	margin-left: 2em;
 	margin-bottom: 1em;
 }
